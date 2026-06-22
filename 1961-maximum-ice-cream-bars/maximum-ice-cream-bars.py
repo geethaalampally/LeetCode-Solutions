@@ -1,22 +1,14 @@
 class Solution:
     def maxIceCream(self, costs: List[int], coins: int) -> int:
-
-
-        # Sort costs in ascending order
-        costs.sort()
-
-        count = 0
-
+        freq=[0]*(max(costs)+1)
         for cost in costs:
-
-            # Buy the current ice cream
-            coins -= cost
-
-            # Not enough coins after purchase
-            if coins < 0:
-                break
-
-            # Ice cream successfully purchased
-            count += 1
-
+            freq[cost]+=1
+        
+        count=0
+        for cost in range(len(freq)):
+            while freq[cost]>0 and coins>=cost:
+                coins-=cost
+                count+=1
+                freq[cost]-=1
         return count
+        
